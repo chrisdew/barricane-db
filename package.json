@@ -1,4 +1,4 @@
-{ "name" : "barricane-server"
+{ "name" : "barricane-prevalent"
 , "description" : "A NodeJS-based web server."
 , "version" : "0.0.1"
 , "maintainers" :
@@ -6,20 +6,16 @@
     , "email": "cmsdew@gmail.com"
     }
   ]
-, "bugs" : { "web" : "http://github.com/chrisdew/barricane-server/issues" }
+, "bugs" : { "web" : "http://github.com/chrisdew/barricane-prevalent/issues" }
 , "licenses" : [ { "type" : "MIT" } ]
 , "repositories" :
   [ { "type" : "git"
-    , "url" : "http://github.com/chrisdew/barricane-server"
+    , "url" : "http://github.com/chrisdew/barricane-prevalent"
     }
   ]
-, "main" : "./lib/barricane-server"
+, "main" : "./lib/barricane-prevalent"
 , "engines" : { "node" : ">=0.2.6" }
 , "dependencies" : { "vows" : ">=0.5.2"
                    , "docco" : ">=0.3.0"
-                   , "jsdom" : ">=0.1.23"
-                   , "nodemon" : ">=0.1.8"
-                   , "socket.io" : ">=0.6.8" 
-                   , "redis" : ">=0.5.0"
                    }
 }
