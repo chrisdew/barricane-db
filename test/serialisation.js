@@ -17,7 +17,6 @@ function Bank(name, sort_code, contacts) {
 	this.sort_code = sort_code;
 	this.contacts = contacts;
 	p.register(this);
-	this.name = name;
 }
 function Customer(personal_name, family_name, dob) {
 	this.personal_name = personal_name;
@@ -33,6 +32,7 @@ function Account(bank, customer, balance) {
 }
 
 var lloyds = new Bank('lloyds', "01-02-03");
+lloyds.name = "LloydsTSB";
 var barclays = new Bank('barclays', "02-03-04",
 								   { tel: "02345 678901"
 								   , email: "info@barclays.com"
@@ -62,7 +62,7 @@ vows.describe('The First Test').addBatch({
 	            	    		{
 	            	        0: {
 	            	            __constructor: 'Bank',
-	            	            name: 'lloyds',
+	            	            name: 'LloydsTSB',
 	            	            sort_code: '01-02-03',
 	            	            contacts: undefined,
 	            	            __uuid: '0'

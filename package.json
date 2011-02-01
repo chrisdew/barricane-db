@@ -17,5 +17,6 @@
 , "engines" : { "node" : ">=0.2.6" }
 , "dependencies" : { "vows" : ">=0.5.2"
                    , "docco" : ">=0.3.0"
+                   , "node-uuid" : ">=1.1.0"
                    }
 }
