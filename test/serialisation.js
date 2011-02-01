@@ -17,6 +17,7 @@ function Bank(name, sort_code, contacts) {
 	this.sort_code = sort_code;
 	this.contacts = contacts;
 	p.register(this);
+	this.name = name;
 }
 function Customer(personal_name, family_name, dob) {
 	this.personal_name = personal_name;
