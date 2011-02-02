@@ -9,7 +9,7 @@ function mockUuid() {
 	return "" + nextMockUuid++;
 }
 
-var p = new pre.Prevalent(options={uuidFn: mockUuid});
+var p = new pre.Prevalent(options={uuid: mockUuid});
 //p.registerConstructors(Bank, Customer, Account);
 
 function Bank(name, sort_code, contacts) {
