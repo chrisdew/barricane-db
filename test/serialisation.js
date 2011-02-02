@@ -9,7 +9,8 @@ function mockUuid() {
 	return "" + nextMockUuid++;
 }
 
-var db = new bdb.DB(options={uuid: mockUuid});
+var db = new bdb.DB(options={ uuid: mockUuid
+		                    } );
 //p.registerConstructors(Bank, Customer, Account);
 
 function Bank(name, sort_code, contacts) {
