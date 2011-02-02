@@ -1,6 +1,6 @@
 var vows = require('vows')
   , assert = require('assert')
-  , pre = require('barricane-prevalent')
+  , bdb = require('barricane-db')
   ;
 
 // mock up uuids for testing
@@ -9,26 +9,26 @@ function mockUuid() {
 	return "" + nextMockUuid++;
 }
 
-var p = new pre.Prevalent(options={uuid: mockUuid});
+var db = new bdb.DB(options={uuid: mockUuid});
 //p.registerConstructors(Bank, Customer, Account);
 
 function Bank(name, sort_code, contacts) {
 	this.name = name;
 	this.sort_code = sort_code;
 	this.contacts = contacts;
-	p.register(this);
+	db.register(this);
 }
 function Customer(personal_name, family_name, dob) {
 	this.personal_name = personal_name;
 	this.family_name = family_name;
 	this.dob = dob;
-	p.register(this);
+	db.register(this);
 }
 function Account(bank, customer, balance) {
 	this.bank = bank;
 	this.customer = customer;
 	this.balance = balance;
-	p.register(this);
+	db.register(this);
 }
 
 var lloyds = new Bank('lloyds', "01-02-03");
@@ -49,7 +49,7 @@ var ginny_lloyds_account = new Account(lloyds, ginny, 10);
 var ginny_barclays_account = new Account(barclays, ginny, 1000);
 
 vows.describe('The First Test').addBatch({
-    'Setting Up': { topic: p
+    'Setting Up': { topic: db
 	              , 'constructors are registered': function(topic) {
 	            	    assert.deepEqual(topic.constructors, 
 	            	    	{ Bank: Bank

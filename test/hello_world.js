@@ -1,6 +1,6 @@
 var vows = require('vows')
   , assert = require('assert')
-  , bdb = require('barricane-prevalent')
+  , bdb = require('barricane-db')
   ;
 
 vows.describe('The First Test').addBatch({

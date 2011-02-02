@@ -1,22 +1,23 @@
-{ "name" : "barricane-prevalent"
-, "description" : "A NodeJS-based web server."
+{ "name" : "barricane-db"
+, "description" : "A NodeJS-based in-process database."
 , "version" : "0.0.1"
 , "maintainers" :
   [ { "name": "Chris Dew"
     , "email": "cmsdew@gmail.com"
     }
   ]
-, "bugs" : { "web" : "http://github.com/chrisdew/barricane-prevalent/issues" }
+, "bugs" : { "web" : "http://github.com/chrisdew/barricane-db/issues" }
 , "licenses" : [ { "type" : "MIT" } ]
 , "repositories" :
   [ { "type" : "git"
-    , "url" : "http://github.com/chrisdew/barricane-prevalent"
+    , "url" : "http://github.com/chrisdew/barricane-db"
     }
   ]
-, "main" : "./lib/barricane-prevalent"
+, "main" : "./lib/barricane-db"
 , "engines" : { "node" : ">=0.2.6" }
 , "dependencies" : { "vows" : ">=0.5.2"
                    , "docco" : ">=0.3.0"
                    , "node-uuid" : ">=1.1.0"
+                   , "datejs" : ">=0.0.1"
                    }
 }
