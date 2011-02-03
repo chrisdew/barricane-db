@@ -32,6 +32,8 @@ function Account(bank, customer, balance) {
 	db.register(this);
 }
 
+db.registerConstructors(Bank, Customer, Account);
+
 var lloyds = new Bank('lloyds', "01-02-03");
 lloyds.name = "LloydsTSB";
 var barclays = new Bank('barclays', "02-03-04",
@@ -59,7 +61,7 @@ vows.describe('The First Test').addBatch({
 	            	        } );
 					}
 	              , 'serialisation_has_worked': function(topic) {
-	            	    assert.deepEqual(topic.toJson(), 
+	            	    assert.deepEqual(topic.toJSON(), 
 	            	    		{
 	            	        0: {
 	            	            __constructor: 'Bank',
