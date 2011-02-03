@@ -76,7 +76,7 @@ Then load and reconstitute the database:
 
     var db = new bdb.DB({path: '/tmp', name: 'test_db'});
 
-    // if course you'll really be requiring your constructors from a common
+    // of course you'll really be requiring your constructors from a common
     // file - this needless duplication is just to keep this example simple
     function House(address) {
         this.address = address;
@@ -132,5 +132,5 @@ Then load and reconstitute the database:
     house.logConstructionMaterial();
     // --> 301 Cobblestone Wy., Bedrock, 70777 is made of stone
 
-    db.end();
-
+    db.end();  // If you don't bother with this, the database will
+               // use the transaction log to catch up.

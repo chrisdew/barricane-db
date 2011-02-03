@@ -1,6 +1,6 @@
 var vows = require('vows')
   , assert = require('assert')
-  , bdb = require('barricane-db')
+  , bdb = require('../lib/old-barricane-db')
   ;
 
 // mock up uuids for testing
