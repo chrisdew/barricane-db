@@ -1,0 +1,63 @@
+<!DOCTYPE html>  <html> <head>   <title>old-disk-manager.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="barricane-db.html">                 barricane-db.js               </a>                                           <a class="source" href="bdb-disk-manager.html">                 bdb-disk-manager.js               </a>                                           <a class="source" href="db.html">                 db.js               </a>                                           <a class="source" href="disk-io.html">                 disk-io.js               </a>                                           <a class="source" href="old-barricane-db.html">                 old-barricane-db.js               </a>                                           <a class="source" href="serialisation.html">                 serialisation.js               </a>                                           <a class="source" href="demo.html">                 demo.js               </a>                                           <a class="source" href="hello_world.html">                 hello_world.js               </a>                                           <a class="source" href="model.html">                 model.js               </a>                                           <a class="source" href="old-disk-manager.html">                 old-disk-manager.js               </a>                                           <a class="source" href="old-serialisation.html">                 old-serialisation.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               old-disk-manager.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">vows</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vows&#39;</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;assert&#39;</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">bdb</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/old-barricane-db&#39;</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">bdm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/bdb-disk-manager&#39;</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
+  <span class="p">;</span>
+<span class="nx">require</span><span class="p">(</span><span class="s1">&#39;datejs&#39;</span><span class="p">);</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>mock up uuids for testing</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">nextMockUuid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">mockUuid</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="s2">&quot;&quot;</span> <span class="o">+</span> <span class="nx">nextMockUuid</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+
+<span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">dm</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">setup</span><span class="p">()</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>remove old files, if they exist</p>             </td>             <td class="code">               <div class="highlight"><pre>	<span class="k">try</span> <span class="p">{</span>
+		<span class="nx">fs</span><span class="p">.</span><span class="nx">unlinkSync</span><span class="p">(</span><span class="s1">&#39;/tmp/unnamed_db.bdb&#39;</span><span class="p">);</span>
+		<span class="nx">fs</span><span class="p">.</span><span class="nx">unlinkSync</span><span class="p">(</span><span class="s1">&#39;/tmp/unnamed_db.log&#39;</span><span class="p">);</span>
+	<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;unable to remove files&quot;</span><span class="p">);</span>
+	<span class="p">}</span>
+	
+	<span class="kd">var</span> <span class="nx">dm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">bdm</span><span class="p">.</span><span class="nx">BDBDiskManager</span><span class="p">({</span><span class="nx">uuid</span><span class="o">:</span> <span class="nx">mockUuid</span><span class="p">});</span>
+	<span class="nx">db</span> <span class="o">=</span> <span class="nx">dm</span><span class="p">.</span><span class="nx">db</span><span class="p">;</span>
+	
+	<span class="kd">function</span> <span class="nx">Customer</span><span class="p">(</span><span class="nx">personal_name</span><span class="p">,</span> <span class="nx">family_name</span><span class="p">,</span> <span class="nx">dob</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">personal_name</span> <span class="o">=</span> <span class="nx">personal_name</span><span class="p">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">family_name</span> <span class="o">=</span> <span class="nx">family_name</span><span class="p">;</span>
+		<span class="k">this</span><span class="p">.</span><span class="nx">dob</span> <span class="o">=</span> <span class="nx">dob</span><span class="p">;</span>
+		<span class="nx">db</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+	<span class="p">}</span>
+	
+	<span class="nx">db</span><span class="p">.</span><span class="nx">registerConstructors</span><span class="p">(</span><span class="nx">Customer</span><span class="p">);</span>
+	
+	<span class="kd">var</span> <span class="nx">customer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Customer</span><span class="p">(</span><span class="s2">&quot;Fred&quot;</span><span class="p">,</span> <span class="s2">&quot;Smith&quot;</span><span class="p">,</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s2">&quot;2011-02-02&quot;</span><span class="p">));</span>
+	<span class="nx">customer</span><span class="p">.</span><span class="nx">family_name</span> <span class="o">=</span> <span class="s2">&quot;Flintstone&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">setup</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">suite</span> <span class="o">=</span> <span class="nx">vows</span><span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;disk-manager&#39;</span><span class="p">).</span><span class="nx">addBatch</span><span class="p">({</span>
+    <span class="s1">&#39;.bdb file&#39;</span><span class="o">:</span> <span class="p">{</span> <span class="nx">topic</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+					    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;/tmp/unnamed_db.bdb&#39;</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">callback</span><span class="p">);</span>
+					<span class="p">}</span>
+					<span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+	            	    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="s1">&#39;{}&#39;</span><span class="p">);</span>
+					<span class="p">}</span>
+				  <span class="p">}</span> 
+  <span class="p">,</span> <span class="s1">&#39;.log file&#39;</span><span class="o">:</span> <span class="p">{</span> <span class="nx">topic</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+					    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;/tmp/unnamed_db.log&#39;</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">callback</span><span class="p">);</span>
+					<span class="p">}</span>
+					<span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+	            	    <span class="nx">assert</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="s1">&#39;{&quot;__constructor&quot;:&quot;Customer&quot;,&quot;personal_name&quot;:&quot;Fred&quot;,&quot;family_name&quot;:&quot;Smith&quot;,&quot;dob&quot;:&quot;__DATE__1296604800000&quot;,&quot;__uuid&quot;:&quot;0&quot;}\n{&quot;__constructor&quot;:&quot;Customer&quot;,&quot;personal_name&quot;:&quot;Fred&quot;,&quot;family_name&quot;:&quot;Flintstone&quot;,&quot;dob&quot;:&quot;__DATE__1296604800000&quot;,&quot;__uuid&quot;:&quot;0&quot;}\n&#39;</span><span class="p">);</span>
+					<span class="p">}</span>
+				  <span class="p">}</span> 
+<span class="p">})</span>
+<span class="nx">suite</span><span class="p">.</span><span class="kr">export</span><span class="p">(</span><span class="nx">module</span><span class="p">);</span>
+
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">dm</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+<span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

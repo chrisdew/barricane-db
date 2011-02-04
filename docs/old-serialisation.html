@@ -1,0 +1,114 @@
+<!DOCTYPE html>  <html> <head>   <title>old-serialisation.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="barricane-db.html">                 barricane-db.js               </a>                                           <a class="source" href="bdb-disk-manager.html">                 bdb-disk-manager.js               </a>                                           <a class="source" href="db.html">                 db.js               </a>                                           <a class="source" href="disk-io.html">                 disk-io.js               </a>                                           <a class="source" href="old-barricane-db.html">                 old-barricane-db.js               </a>                                           <a class="source" href="serialisation.html">                 serialisation.js               </a>                                           <a class="source" href="demo.html">                 demo.js               </a>                                           <a class="source" href="hello_world.html">                 hello_world.js               </a>                                           <a class="source" href="model.html">                 model.js               </a>                                           <a class="source" href="old-disk-manager.html">                 old-disk-manager.js               </a>                                           <a class="source" href="old-serialisation.html">                 old-serialisation.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               old-serialisation.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">vows</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vows&#39;</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">assert</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;assert&#39;</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">bdb</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../lib/old-barricane-db&#39;</span><span class="p">)</span>
+  <span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>mock up uuids for testing</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">nextMockUuid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">mockUuid</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="s2">&quot;&quot;</span> <span class="o">+</span> <span class="nx">nextMockUuid</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">bdb</span><span class="p">.</span><span class="nx">DB</span><span class="p">(</span><span class="nx">options</span><span class="o">=</span><span class="p">{</span> <span class="nx">uuid</span><span class="o">:</span> <span class="nx">mockUuid</span>
+		                    <span class="p">}</span> <span class="p">);</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>p.registerConstructors(Bank, Customer, Account);</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">Bank</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">sort_code</span><span class="p">,</span> <span class="nx">contacts</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">sort_code</span> <span class="o">=</span> <span class="nx">sort_code</span><span class="p">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">contacts</span> <span class="o">=</span> <span class="nx">contacts</span><span class="p">;</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">Customer</span><span class="p">(</span><span class="nx">personal_name</span><span class="p">,</span> <span class="nx">family_name</span><span class="p">,</span> <span class="nx">dob</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">personal_name</span> <span class="o">=</span> <span class="nx">personal_name</span><span class="p">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">family_name</span> <span class="o">=</span> <span class="nx">family_name</span><span class="p">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">dob</span> <span class="o">=</span> <span class="nx">dob</span><span class="p">;</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">Account</span><span class="p">(</span><span class="nx">bank</span><span class="p">,</span> <span class="nx">customer</span><span class="p">,</span> <span class="nx">balance</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">bank</span> <span class="o">=</span> <span class="nx">bank</span><span class="p">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">customer</span> <span class="o">=</span> <span class="nx">customer</span><span class="p">;</span>
+	<span class="k">this</span><span class="p">.</span><span class="nx">balance</span> <span class="o">=</span> <span class="nx">balance</span><span class="p">;</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">registerConstructors</span><span class="p">(</span><span class="nx">Bank</span><span class="p">,</span> <span class="nx">Customer</span><span class="p">,</span> <span class="nx">Account</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">lloyds</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bank</span><span class="p">(</span><span class="s1">&#39;lloyds&#39;</span><span class="p">,</span> <span class="s2">&quot;01-02-03&quot;</span><span class="p">);</span>
+<span class="nx">lloyds</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;LloydsTSB&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">barclays</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bank</span><span class="p">(</span><span class="s1">&#39;barclays&#39;</span><span class="p">,</span> <span class="s2">&quot;02-03-04&quot;</span><span class="p">,</span>
+								   <span class="p">{</span> <span class="nx">tel</span><span class="o">:</span> <span class="s2">&quot;02345 678901&quot;</span>
+								   <span class="p">,</span> <span class="nx">email</span><span class="o">:</span> <span class="s2">&quot;info@barclays.com&quot;</span>
+								   <span class="p">}</span> <span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ben_dob</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+<span class="nx">ben_dob</span><span class="p">.</span><span class="nx">setTime</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="nx">ben_dob</span><span class="p">.</span><span class="nx">setYear</span><span class="p">(</span><span class="s2">&quot;2001&quot;</span><span class="p">);</span>
+<span class="nx">ben_dob</span><span class="p">.</span><span class="nx">setMonth</span><span class="p">(</span><span class="s2">&quot;01&quot;</span><span class="p">);</span>
+<span class="nx">ben_dob</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="s2">&quot;01&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ben</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Customer</span><span class="p">(</span><span class="s1">&#39;ben&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="nx">ben_dob</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ginny</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Customer</span><span class="p">(</span><span class="s1">&#39;ginny&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ben_account</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Account</span><span class="p">(</span><span class="nx">lloyds</span><span class="p">,</span> <span class="nx">ben</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ginny_lloyds_account</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Account</span><span class="p">(</span><span class="nx">lloyds</span><span class="p">,</span> <span class="nx">ginny</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ginny_barclays_account</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Account</span><span class="p">(</span><span class="nx">barclays</span><span class="p">,</span> <span class="nx">ginny</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+
+<span class="nx">vows</span><span class="p">.</span><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;The First Test&#39;</span><span class="p">).</span><span class="nx">addBatch</span><span class="p">({</span>
+    <span class="s1">&#39;Setting Up&#39;</span><span class="o">:</span> <span class="p">{</span> <span class="nx">topic</span><span class="o">:</span> <span class="nx">db</span>
+	              <span class="p">,</span> <span class="s1">&#39;constructors are registered&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">topic</span><span class="p">)</span> <span class="p">{</span>
+	            	    <span class="nx">assert</span><span class="p">.</span><span class="nx">deepEqual</span><span class="p">(</span><span class="nx">topic</span><span class="p">.</span><span class="nx">constructors</span><span class="p">,</span> 
+	            	    	<span class="p">{</span> <span class="nx">Bank</span><span class="o">:</span> <span class="nx">Bank</span>
+	            	        <span class="p">,</span> <span class="nx">Customer</span><span class="o">:</span> <span class="nx">Customer</span>
+	            	        <span class="p">,</span> <span class="nx">Account</span><span class="o">:</span> <span class="nx">Account</span>
+	            	        <span class="p">}</span> <span class="p">);</span>
+					<span class="p">}</span>
+	              <span class="p">,</span> <span class="s1">&#39;serialisation_has_worked&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">topic</span><span class="p">)</span> <span class="p">{</span>
+	            	    <span class="nx">assert</span><span class="p">.</span><span class="nx">deepEqual</span><span class="p">(</span><span class="nx">topic</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">(),</span> 
+	            	    		<span class="p">{</span>
+	            	        <span class="mi">0</span><span class="o">:</span> <span class="p">{</span>
+	            	            <span class="nx">__constructor</span><span class="o">:</span> <span class="s1">&#39;Bank&#39;</span><span class="p">,</span>
+	            	            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;LloydsTSB&#39;</span><span class="p">,</span>
+	            	            <span class="nx">sort_code</span><span class="o">:</span> <span class="s1">&#39;01-02-03&#39;</span><span class="p">,</span>
+	            	            <span class="nx">contacts</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+	            	            <span class="nx">__uuid</span><span class="o">:</span> <span class="s1">&#39;0&#39;</span>
+	            	        <span class="p">},</span>
+	            	        <span class="mi">1</span><span class="o">:</span> <span class="p">{</span>
+	            	            <span class="nx">__constructor</span><span class="o">:</span> <span class="s1">&#39;Bank&#39;</span><span class="p">,</span>
+	            	            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;barclays&#39;</span><span class="p">,</span>
+	            	            <span class="nx">sort_code</span><span class="o">:</span> <span class="s1">&#39;02-03-04&#39;</span><span class="p">,</span>
+	            	            <span class="nx">contacts</span><span class="o">:</span> <span class="p">{</span> <span class="nx">tel</span><span class="o">:</span> <span class="s1">&#39;02345 678901&#39;</span><span class="p">,</span> <span class="nx">email</span><span class="o">:</span> <span class="s1">&#39;info@barclays.com&#39;</span> <span class="p">},</span>
+	            	            <span class="nx">__uuid</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span>
+	            	        <span class="p">},</span>
+	            	        <span class="mi">2</span><span class="o">:</span> <span class="p">{</span>
+	            	            <span class="nx">__constructor</span><span class="o">:</span> <span class="s1">&#39;Customer&#39;</span><span class="p">,</span>
+	            	            <span class="nx">personal_name</span><span class="o">:</span> <span class="s1">&#39;ben&#39;</span><span class="p">,</span>
+	            	            <span class="nx">family_name</span><span class="o">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+	            	            <span class="nx">dob</span><span class="o">:</span> <span class="s1">&#39;__DATE__980985600000&#39;</span><span class="p">,</span>
+	            	            <span class="nx">__uuid</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span>
+	            	        <span class="p">},</span>
+	            	        <span class="mi">3</span><span class="o">:</span> <span class="p">{</span>
+	            	            <span class="nx">__constructor</span><span class="o">:</span> <span class="s1">&#39;Customer&#39;</span><span class="p">,</span>
+	            	            <span class="nx">personal_name</span><span class="o">:</span> <span class="s1">&#39;ginny&#39;</span><span class="p">,</span>
+	            	            <span class="nx">family_name</span><span class="o">:</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+	            	            <span class="nx">dob</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+	            	            <span class="nx">__uuid</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span>
+	            	        <span class="p">},</span>
+	            	        <span class="mi">4</span><span class="o">:</span> <span class="p">{</span>
+	            	            <span class="nx">__constructor</span><span class="o">:</span> <span class="s1">&#39;Account&#39;</span><span class="p">,</span>
+	            	            <span class="nx">bank</span><span class="o">:</span> <span class="s1">&#39;__ID__0&#39;</span><span class="p">,</span>
+	            	            <span class="nx">customer</span><span class="o">:</span> <span class="s1">&#39;__ID__2&#39;</span><span class="p">,</span>
+	            	            <span class="nx">balance</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+	            	            <span class="nx">__uuid</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span>
+	            	        <span class="p">},</span>
+	            	        <span class="mi">5</span><span class="o">:</span> <span class="p">{</span>
+	            	            <span class="nx">__constructor</span><span class="o">:</span> <span class="s1">&#39;Account&#39;</span><span class="p">,</span>
+	            	            <span class="nx">bank</span><span class="o">:</span> <span class="s1">&#39;__ID__0&#39;</span><span class="p">,</span>
+	            	            <span class="nx">customer</span><span class="o">:</span> <span class="s1">&#39;__ID__3&#39;</span><span class="p">,</span>
+	            	            <span class="nx">balance</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+	            	            <span class="nx">__uuid</span><span class="o">:</span> <span class="s1">&#39;5&#39;</span>
+	            	        <span class="p">},</span>
+	            	        <span class="mi">6</span><span class="o">:</span> <span class="p">{</span>
+	            	            <span class="nx">__constructor</span><span class="o">:</span> <span class="s1">&#39;Account&#39;</span><span class="p">,</span>
+	            	            <span class="nx">bank</span><span class="o">:</span> <span class="s1">&#39;__ID__1&#39;</span><span class="p">,</span>
+	            	            <span class="nx">customer</span><span class="o">:</span> <span class="s1">&#39;__ID__3&#39;</span><span class="p">,</span>
+	            	            <span class="nx">balance</span><span class="o">:</span> <span class="mi">1000</span><span class="p">,</span>
+	            	            <span class="nx">__uuid</span><span class="o">:</span> <span class="s1">&#39;6&#39;</span>
+	            	        <span class="p">}</span>
+	            	    <span class="p">}</span> <span class="p">);</span>
+	                <span class="p">}</span>
+				  <span class="p">}</span> 
+<span class="p">}).</span><span class="kr">export</span><span class="p">(</span><span class="nx">module</span><span class="p">);</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

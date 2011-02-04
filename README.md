@@ -8,7 +8,7 @@ BarricaneDB is a loose implementation of the [Prevalence](http://www.ibm.com/dev
 Features
 --------
 * Fantastically fast.
-* Stupidly simple, thank you __defineSetter__ and friends.
+* Stupidly simple, thank you <code>__defineSetter__</code> and friends.
 * ORM-less, just work with your objects directly.
 * Snapshot plus transaction log gives persistance in event of an application crash.
 
