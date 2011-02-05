@@ -7,13 +7,13 @@ var vows = require('vows')
   , swoj = require('../lib/swoj-codec')
   ;
 
-// Create a process wide default DB, with mocked up uuids.
+// Create a process wide MockDB, with mocked up uuids.
 process.db = new mock.DB();
 
 // <code>process.db</code> must exist before we can require our model. You can 
 // leave your model untouched by BarricanDB and manually call 
-// <code>DB.registerInstance</code> as each new object is constructed. This way 
-// is generally easier.
+// <code>DB.registerInstance</code> as each new object is constructed, But This 
+// way is generally easier.
 var model = require('./demo-model');
 
 // Construct a simple model from which objects can be persisted.
