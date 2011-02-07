@@ -35,12 +35,35 @@ way is generally easier.</p>             </td>             <td class="code">    
       <span class="o">:</span> <span class="nx">wilma</span>
       <span class="p">,</span> <span class="s2">&quot;serialise&quot;</span>
       <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">topic</span><span class="p">)</span> <span class="p">{</span> <span class="nx">assert</span><span class="p">.</span><span class="nx">deepEqual</span><span class="p">(</span><span class="nx">codec</span><span class="p">.</span><span class="nx">serialise</span><span class="p">(</span><span class="nx">topic</span><span class="p">),</span> <span class="s1">&#39;{&quot;__constructor__&quot;:&quot;Person&quot;,&quot;personalName&quot;:&quot;Wilma&quot;,&quot;familyName&quot;:&quot;Flintstone&quot;,&quot;spouse&quot;:&quot;__UUID__:1&quot;,&quot;house&quot;:&quot;__UUID__:0&quot;,&quot;__uuid__&quot;:&quot;2&quot;}&#39;</span><span class="p">);</span> <span class="p">}</span>
-      <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>, "deserialise house"
-: { topic
- : '"<strong>constructor":"House","address":"301 Cobblestone Wy., Bedrock, 70777","</strong>uuid__":"0"}'
- , "unserialise"
- : function(topic) { assert.deepEqual(codec.deserialise(topic), house) }
- }</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="p">}</span>
-<span class="p">)</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>TODO test unserialisation</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">suite</span><span class="p">.</span><span class="kr">export</span><span class="p">(</span><span class="nx">module</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">,</span> <span class="s2">&quot;deserialise house&quot;</span>
+    <span class="o">:</span> <span class="p">{</span> <span class="nx">topic</span>
+      <span class="o">:</span> <span class="s1">&#39;{&quot;__constructor__&quot;:&quot;House&quot;,&quot;address&quot;:&quot;301 Cobblestone Wy., Bedrock, 70777&quot;,&quot;__uuid__&quot;:&quot;0&quot;}&#39;</span>
+      <span class="p">,</span> <span class="s2">&quot;deserialise&quot;</span>
+      <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">topic</span><span class="p">)</span> <span class="p">{</span> <span class="nx">assert</span><span class="p">.</span><span class="nx">deepEqual</span><span class="p">(</span><span class="nx">codec</span><span class="p">.</span><span class="nx">deserialise</span><span class="p">(</span><span class="nx">topic</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;House&quot;</span><span class="o">:</span> <span class="nx">model</span><span class="p">.</span><span class="nx">House</span><span class="p">,</span> <span class="s2">&quot;Person&quot;</span><span class="o">:</span> <span class="nx">model</span><span class="p">.</span><span class="nx">Person</span><span class="p">}),</span> <span class="nx">house</span><span class="p">)</span> <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="cm">/*</span>
+<span class="cm">    , &quot;deserialise all&quot;</span>
+<span class="cm">    : { topic</span>
+<span class="cm">      : function() {</span>
+<span class="cm">    		var instances = {};</span>
+<span class="cm">    		var ob0 = codec.deserialise(&#39;{&quot;__constructor__&quot;:&quot;House&quot;,&quot;address&quot;:&quot;301 Cobblestone Wy., Bedrock, 70777&quot;,&quot;__uuid__&quot;:&quot;0&quot;}&#39;);</span>
+<span class="cm">    		instances[ob0.__uuid__] = ob0;</span>
+<span class="cm">    		var ob1 = codec.deserialise(&#39;{&quot;__constructor__&quot;:&quot;Person&quot;,&quot;personalName&quot;:&quot;Fred&quot;,&quot;familyName&quot;:&quot;Flintstone&quot;,&quot;spouse&quot;:&quot;__UUID__:2&quot;,&quot;house&quot;:&quot;__UUID__:0&quot;,&quot;__uuid__&quot;:&quot;1&quot;}&#39;);</span>
+<span class="cm">    		instances[ob1.__uuid__] = ob1;</span>
+<span class="cm">    		var ob2 = codec.deserialise(&#39;{&quot;__constructor__&quot;:&quot;Person&quot;,&quot;personalName&quot;:&quot;Wilma&quot;,&quot;familyName&quot;:&quot;Flintstone&quot;,&quot;spouse&quot;:&quot;__UUID__:1&quot;,&quot;house&quot;:&quot;__UUID__:0&quot;,&quot;__uuid__&quot;:&quot;2&quot;}&#39;);</span>
+<span class="cm">    		instances[ob2.__uuid__] = ob2;</span>
+<span class="cm">    		codec.fixRefs(instances);</span>
+<span class="cm">    		return instances;</span>
+<span class="cm">    	}</span>
+<span class="cm">      , &#39;deserialise&#39;</span>
+<span class="cm">      : function(topic) {</span>
 
-</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
+<span class="cm">//DIVIDER</span>
+<span class="cm">        }</span>
+<span class="cm">      }</span>
+<span class="cm">      */</span>
+    <span class="p">}</span>
+<span class="p">)</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>TODO add some nested topics here</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">suite</span><span class="p">.</span><span class="kr">export</span><span class="p">(</span><span class="nx">module</span><span class="p">);</span>
+
+</pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>TODO test unserialisation</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

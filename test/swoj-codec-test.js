@@ -47,12 +47,32 @@ var suite = vows.describe('Codec').addBatch(
       , "serialise"
       : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor__":"Person","personalName":"Wilma","familyName":"Flintstone","spouse":"__UUID__:1","house":"__UUID__:0","__uuid__":"2"}'); }
       }
-    //, "deserialise house"
-    //: { topic
-    //  : '"__constructor":"House","address":"301 Cobblestone Wy., Bedrock, 70777","__uuid__":"0"}'
-    //  , "unserialise"
-    //  : function(topic) { assert.deepEqual(codec.deserialise(topic), house) }
-    //  }
+    , "deserialise house"
+    : { topic
+      : '{"__constructor__":"House","address":"301 Cobblestone Wy., Bedrock, 70777","__uuid__":"0"}'
+      , "deserialise"
+      : function(topic) { assert.deepEqual(codec.deserialise(topic, {"House": model.House, "Person": model.Person}), house) }
+      }
+    /*
+    , "deserialise all"
+    : { topic
+      : function() {
+    		var instances = {};
+    		var ob0 = codec.deserialise('{"__constructor__":"House","address":"301 Cobblestone Wy., Bedrock, 70777","__uuid__":"0"}');
+    		instances[ob0.__uuid__] = ob0;
+    		var ob1 = codec.deserialise('{"__constructor__":"Person","personalName":"Fred","familyName":"Flintstone","spouse":"__UUID__:2","house":"__UUID__:0","__uuid__":"1"}');
+    		instances[ob1.__uuid__] = ob1;
+    		var ob2 = codec.deserialise('{"__constructor__":"Person","personalName":"Wilma","familyName":"Flintstone","spouse":"__UUID__:1","house":"__UUID__:0","__uuid__":"2"}');
+    		instances[ob2.__uuid__] = ob2;
+    		codec.fixRefs(instances);
+    		return instances;
+    	}
+      , 'deserialise'
+      : function(topic) {
+    	  // TODO add some nested topics here
+        }
+      }
+      */
     }
 )
 
