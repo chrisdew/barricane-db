@@ -6,6 +6,12 @@ var vows = require('vows')
   , bdb = require('../lib/barricane-db')
   ;
 
+
+
+
+
+
+
 var suite = vows.describe('Setup').addBatch(
     { "dummy"
     : { topic

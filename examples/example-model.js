@@ -1,14 +1,13 @@
 // Copyright (c) 2010 Barricane Technology Ltd., All Rights Reserved.
 // Released under the MIT open source licence.
 
-// This is demonstration model code, as used in test suites.
+// This is demonstration model code, as used in the examples.
 
 // A house constructor.
 function House(address) {
     this.address = address;
     
-    // Managed objects need to be registered - this causes them to be persisted
-    // whenever they are modified.
+    // Managed objects need to be registered - this causes them to be persisted.
     // Registering in the constructor is just convenient, not required.
     process.db.registerInstance(this);
 }
@@ -29,9 +28,6 @@ function Person(personalName, familyName) {
 
     process.db.registerInstance(this);
 }
-
-// Register the constructors.
-process.db.registerConstructors(House, Person);
 
 // Export the symbols.
 exports.House = House;

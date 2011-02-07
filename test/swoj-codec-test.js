@@ -26,7 +26,7 @@ fred.spouse = wilma;
 wilma.spouse = fred;
 
 
-var codec = new swoj.Codec("__");
+var codec = new swoj.Codec();
 
 var suite = vows.describe('Codec').addBatch(
     { "serialise house"
@@ -39,13 +39,13 @@ var suite = vows.describe('Codec').addBatch(
     : { topic
       : fred
       , "serialise"
-      : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor__":"Person","personalName":"Fred","familyName":"Flintstone","spouse":"__UUID__:2","house":"__UUID__:0","__uuid__":"1"}'); }
+      : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor__":"Person","personalName":"Fred","familyName":"Flintstone","spouse":"__uuid__2","house":"__uuid__0","__uuid__":"1"}'); }
       }
     , "serialise wilma"
     : { topic
       : wilma
       , "serialise"
-      : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor__":"Person","personalName":"Wilma","familyName":"Flintstone","spouse":"__UUID__:1","house":"__UUID__:0","__uuid__":"2"}'); }
+      : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor__":"Person","personalName":"Wilma","familyName":"Flintstone","spouse":"__uuid__1","house":"__uuid__0","__uuid__":"2"}'); }
       }
     , "deserialise house"
     : { topic
@@ -53,26 +53,60 @@ var suite = vows.describe('Codec').addBatch(
       , "deserialise"
       : function(topic) { assert.deepEqual(codec.deserialise(topic, {"House": model.House, "Person": model.Person}), house) }
       }
-    /*
     , "deserialise all"
     : { topic
       : function() {
     		var instances = {};
-    		var ob0 = codec.deserialise('{"__constructor__":"House","address":"301 Cobblestone Wy., Bedrock, 70777","__uuid__":"0"}');
+    		var constructors = { 'House': model.House, 'Person': model.Person };
+    		var ob0 = codec.deserialise('{"__constructor__":"House","address":"301 Cobblestone Wy., Bedrock, 70777","__uuid__":"0"}', constructors);
     		instances[ob0.__uuid__] = ob0;
-    		var ob1 = codec.deserialise('{"__constructor__":"Person","personalName":"Fred","familyName":"Flintstone","spouse":"__UUID__:2","house":"__UUID__:0","__uuid__":"1"}');
+    		var ob1 = codec.deserialise('{"__constructor__":"Person","personalName":"Fred","familyName":"Flintstone","spouse":"__uuid__2","house":"__uuid__0","__uuid__":"1"}', constructors);
     		instances[ob1.__uuid__] = ob1;
-    		var ob2 = codec.deserialise('{"__constructor__":"Person","personalName":"Wilma","familyName":"Flintstone","spouse":"__UUID__:1","house":"__UUID__:0","__uuid__":"2"}');
+    		var ob2 = codec.deserialise('{"__constructor__":"Person","personalName":"Wilma","familyName":"Flintstone","spouse":"__uuid__1","house":"__uuid__0","__uuid__":"2"}', constructors);
     		instances[ob2.__uuid__] = ob2;
     		codec.fixRefs(instances);
     		return instances;
     	}
-      , 'deserialise'
-      : function(topic) {
-    	  // TODO add some nested topics here
+      , 'check house'
+      : { topic
+    	: function(topic) {
+    	  	  //console.log("a", JSON.stringify(arguments));
+    	      return topic['0'];  // house.__uuid__
+          }
+    	, 'address'
+        : function(topic) {
+              //console.log("b", JSON.stringify(arguments));
+    	      assert.equal(topic.address, '301 Cobblestone Wy., Bedrock, 70777');
+          }
+        }
+      , 'check Wilma'
+      : { topic
+  	    : function(topic) {
+  	  	      //console.log("a", JSON.stringify(arguments));
+  	          return topic['2'];  // wilma.__uuid__
+          }
+  	    , 'personalName'
+        : function(topic) {
+	          assert.equal(topic.personalName, 'Wilma');
+          }
+  	    , 'familyName'
+        : function(topic) {
+  	          assert.equal(topic.familyName, 'Flintstone');
+          }
+	    , 'spouse.personalName'
+        : function(topic) {
+  	          assert.equal(topic.spouse.personalName, 'Fred');
+          }
+	    , 'spouse.spouse.personalName'
+        : function(topic) {
+  	          assert.equal(topic.spouse.spouse.personalName, 'Wilma');
+          }
+	    , 'house.address'
+        : function(topic) {
+  	          assert.equal(topic.house.address, '301 Cobblestone Wy., Bedrock, 70777');
+          }
         }
       }
-      */
     }
 )
 
