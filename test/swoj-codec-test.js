@@ -28,25 +28,31 @@ wilma.spouse = fred;
 
 var codec = new swoj.Codec("__");
 
-var suite = vows.describe('Serialise').addBatch(
-    { "house"
+var suite = vows.describe('Codec').addBatch(
+    { "serialise house"
     : { topic
       : house
       , "serialise"
-      : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor":"House","address":"301 Cobblestone Wy., Bedrock, 70777","__uuid__":"0"}'); }
+      : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor__":"House","address":"301 Cobblestone Wy., Bedrock, 70777","__uuid__":"0"}'); }
       }
-    , "fred"
+    , "serialise fred"
     : { topic
       : fred
       , "serialise"
-      : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor":"Person","personalName":"Fred","familyName":"Flintstone","spouse":"__UUID__:2","house":"__UUID__:0","__uuid__":"1"}'); }
+      : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor__":"Person","personalName":"Fred","familyName":"Flintstone","spouse":"__UUID__:2","house":"__UUID__:0","__uuid__":"1"}'); }
       }
-    , "wilma"
+    , "serialise wilma"
     : { topic
       : wilma
       , "serialise"
-      : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor":"Person","personalName":"Wilma","familyName":"Flintstone","spouse":"__UUID__:1","house":"__UUID__:0","__uuid__":"2"}'); }
+      : function(topic) { assert.deepEqual(codec.serialise(topic), '{"__constructor__":"Person","personalName":"Wilma","familyName":"Flintstone","spouse":"__UUID__:1","house":"__UUID__:0","__uuid__":"2"}'); }
       }
+    //, "deserialise house"
+    //: { topic
+    //  : '"__constructor":"House","address":"301 Cobblestone Wy., Bedrock, 70777","__uuid__":"0"}'
+    //  , "unserialise"
+    //  : function(topic) { assert.deepEqual(codec.deserialise(topic), house) }
+    //  }
     }
 )
 
