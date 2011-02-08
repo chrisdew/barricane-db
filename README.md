@@ -7,7 +7,7 @@ BarricaneDB is a loose implementation of the [Prevalence](http://www.ibm.com/dev
 
 BarricaneDB is really just an ultra-simple persistance layer for a single process.  It can persist your application's model without any explicit 'save' commands.  Every Javascript <code>x.y = "foo";</code> (on registered instances) causes asynchronous persistance to disk.
 
-See the [examples](https://examples) for how easy it is to get started.
+See the [examples](https://github.com/chrisdew/barricane-db/tree/master/examples) for how easy it is to get started.
 
 Installation
 ------------
