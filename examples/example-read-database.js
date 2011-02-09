@@ -42,7 +42,8 @@ console.log(fred.house.address);
 fred.house.logConstructionMaterial();
 /* --> '301 Cobblestone Wy., Bedrock, 70777 is made of stone' */
 
-// Finally, close the database.
+// Finally, close the database.  Note that the file now only has three JSON
+// objects in it, as opposed to the seven in the original.
 db.end(function(err, result) {
 	if (!err) {
 		console.log('database has persisted successfully');
