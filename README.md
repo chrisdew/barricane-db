@@ -10,8 +10,8 @@ BarricaneDB is really just an ultra-simple persistance layer for a single proces
 Examples
 --------
 * [example-create-database](http://www.barricane.com/barricane-db/example-create-database.html) 
-* [example-create-database](http://www.barricane.com/barricane-db/example-model.html) 
-* [example-create-database](http://www.barricane.com/barricane-db/example-read-database.html) 
+* [example-model](http://www.barricane.com/barricane-db/example-model.html) 
+* [example-read-database](http://www.barricane.com/barricane-db/example-read-database.html) 
 
 There's also full, docco-generated, documentation online at [http://www.barricane.com/barricane-db/](http://www.barricane.com/barricane-db/).
 
