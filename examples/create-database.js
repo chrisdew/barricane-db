@@ -35,7 +35,7 @@ wilma.house = house;
 fred.spouse = wilma;
 wilma.spouse = fred;
 
-// No save() needed - persistence is transparent.
+// No save() needed - persistence is implicit.
 
 // This synchronously waits for all writes to complete.
 db.end(function(err, result) {

@@ -4,7 +4,7 @@ clean:
 	rm -rf docs
 
 docs:
-	docco lib/*.js test/*.js
+	docco lib/*.js examples/*.js
 	google-chrome ./docs
 
 
