@@ -36,7 +36,7 @@ wilma.spouse = fred;
 
 // No save() needed - persistence is implicit.
 
-// This synchronously waits for all writes to complete.
+// Finally, close the database.
 db.end(function(err, result) {
 	if (!err) {
 		console.log('database has persisted successfully');

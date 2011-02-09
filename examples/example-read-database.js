@@ -38,5 +38,11 @@ console.log(fred.spouse.spouse.personalName);
 console.log(fred.house.address);
 /* --> '301 Cobblestone Wy., Bedrock, 70777' */
 
-// This synchronously waits for all writes to complete.
-db.endSync();
+// Finally, close the database.
+db.end(function(err, result) {
+	if (!err) {
+		console.log('database has persisted successfully');
+	} else {
+		console.log('error:', error);
+	}
+});
