@@ -2,6 +2,7 @@
 // Released under the MIT open source licence.
 
 var bdb = require('barricane-db')
+  , model = require('./example-model');
   ;
   
 // Create a database instance.
@@ -12,8 +13,6 @@ var db = new bdb.DB({path: '/tmp', name: 'test_db'});
 // <code>DB.registerInstance(instance)</code> every time you create an object. 
 process.db = db;
 
-// Import the model, now that we have defined <code>process.db</code>.
-var model = require('./example-model');
 
 // Delete any database of the same path and name.  Most applications will never
 // use this.  It's only used here so that we know this has created a brand new 

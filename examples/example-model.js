@@ -29,9 +29,6 @@ function Person(personalName, familyName) {
     process.db.registerInstance(this);
 }
 
-// Register the constructors.  
-process.db.registerConstructors(House, Person);
-
 
 // Export the symbols.
 exports.House = House;
