@@ -1,17 +1,23 @@
 BarricaneDB
 ===========
 
-Alpha development.  Does NOT yet work yet.
+Alpha development.  Just about works - may contain bugs.
 
 BarricaneDB is a loose implementation of the [Prevalence](http://www.ibm.com/developerworks/library/wa-objprev/) System Design Pattern, as implemented in Java by [Prevaylor](http://www.prevayler.org/), but for [NodeJS](http://nodejs.org/).
 
 BarricaneDB is really just an ultra-simple persistance layer for a single process.  It can persist your application's model without any explicit 'save' commands.  Every Javascript <code>x.y = "foo";</code> (on registered instances) causes asynchronous persistance to disk.
 
-See the [examples](https://github.com/chrisdew/barricane-db/tree/master/examples) for how easy it is to get started.
+Examples
+--------
+* [example-create-database](http://www.barricane.com/barricane-db/example-create-database.html) 
+* [example-create-database](http://www.barricane.com/barricane-db/example-model.html) 
+* [example-create-database](http://www.barricane.com/barricane-db/example-read-database.html) 
+
+There's also full, docco-generated, documentation online at [http://www.barricane.com/barricane-db/](http://www.barricane.com/barricane-db/).
 
 Installation
 ------------
-* Package not available yet - will be <code>npm install barricane-db</code>
+* <code>npm install barricane-db</code>
 
 Reasons why BarricaneDB will never be a good fit for your application.
 ----------------------------------------------------------------------

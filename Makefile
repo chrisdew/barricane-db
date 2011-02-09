@@ -5,6 +5,7 @@ clean:
 
 docs:
 	docco lib/*.js examples/*.js
-	google-chrome ./docs
+	scp -rp docs/* root@yellow:/var/www/drupal/barricane-db/
+	google-chrome http://www.barricane.com/barricane-db/
 
 
