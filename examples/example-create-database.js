@@ -18,7 +18,6 @@ process.db = db;
 // use this.  It's only used here so that we know this has created a brand new 
 // database.
 db.deleteSync();
-//process.exit(0);
 
 // Open the database for business.  Most once-per-process methods of DB are
 // synchronous, as it's not really an issue and makes applications simpler.

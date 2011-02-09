@@ -38,6 +38,10 @@ console.log(fred.spouse.spouse.personalName);
 console.log(fred.house.address);
 /* --> '301 Cobblestone Wy., Bedrock, 70777' */
 
+// Show that the instances use the right constructors.
+fred.house.logConstructionMaterial();
+/* --> '301 Cobblestone Wy., Bedrock, 70777 is made of stone' */
+
 // Finally, close the database.
 db.end(function(err, result) {
 	if (!err) {
