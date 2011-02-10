@@ -55,8 +55,8 @@ Roadmap
 -------
 * Whether I do anything more to this project, beyond functionality required for some of my other projects, really depends on there being some level of interest in the community.  If you want things to happen, please [watch](https://github.com/chrisdew/barricane-db/toggle_watch) this project on [GitHub](https://github.com/chrisdew/barricane-db) and subscribe to the [Google Group](https://groups.google.com/group/barricane-db).
 * Some of the features I'd like to add include:
-# Change the DB to an emitter and make the open async.
-# Create a subscribe facility so that webclient-proxy objects can be notified on changes to objects which are displayed on user's browsers.
-# Create a more efficient delta-codec which only logs the changed fields of registered instances.
-# Add ACID transactions.
+* Change the DB to an emitter and make the open async.
+* Create a subscribe facility so that webclient-proxy objects can be notified on changes to objects which are displayed on user's browsers.
+* Create a more efficient delta-codec which only logs the changed fields of registered instances.
+* Add ACID transactions.
 * Anything you'd like to add? - Create an issue on GitHub.
