@@ -45,7 +45,7 @@ Backwards compatibility.
 
 Keep up with BarricaneDB.
 -------------------------
-* [Watch](https://github.com/chrisdew/barricane-db/toggle_watch) this project on [GitHub](https://github.com/chrisdew/barricane-db).
+* Watch this project on [GitHub](https://github.com/chrisdew/barricane-db).
 * Follow the [barricane-db](https://groups.google.com/group/barricane-db) Google Group.
 * Look at the documentation on [www.barricane.com](http://www.barricane.com/barricane-db).
 * Send me an [email](mailto:cmsdew@gmail.com).
@@ -53,7 +53,7 @@ Keep up with BarricaneDB.
 
 Roadmap
 -------
-* Whether I do anything more to this project, beyond functionality required for some of my other projects, really depends on there being some level of interest in the community.  If you want things to happen, please [watch](https://github.com/chrisdew/barricane-db/toggle_watch) this project on [GitHub](https://github.com/chrisdew/barricane-db) and subscribe to the [Google Group](https://groups.google.com/group/barricane-db).
+* Whether I do anything more to this project, beyond functionality required for some of my other projects, really depends on there being some level of interest in the community.  If you want things to happen, please watch this project on [GitHub](https://github.com/chrisdew/barricane-db) and subscribe to the [Google Group](https://groups.google.com/group/barricane-db).
 * Some of the features I'd like to add include:
 * Change the DB to an emitter and make the open async.
 * Create a subscribe facility so that webclient-proxy objects can be notified on changes to objects which are displayed on user's browsers.
