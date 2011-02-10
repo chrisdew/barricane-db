@@ -1,6 +1,6 @@
 { "name" : "barricane-db"
 , "description" : "A NodeJS-based in-process database."
-, "version" : "0.0.1"
+, "version" : "0.2.0"
 , "maintainers" :
   [ { "name": "Chris Dew"
     , "email": "cmsdew@gmail.com"
